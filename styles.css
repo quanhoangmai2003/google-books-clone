@@ -1,0 +1,488 @@
+/* simple Google-Books-like minimal style */
+:root{
+  --accent:#1a73e8;
+  --muted:#6b7280;
+  --bg:#f7f9fc;
+  --card:#ffffff;
+  --radius:12px;
+  --shadow: 0 6px 18px rgba(20,20,30,0.06);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#111827;
+  min-height:100vh;
+}
+
+/* top bar */
+.topbar{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:18px 28px;
+  background:linear-gradient(0deg, rgba(255,255,255,0.85), rgba(255,255,255,0.85));
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  position:sticky; top:0; z-index:10;
+}
+.logo{
+  font-weight:700; font-size:18px;
+}
+.logo .accent{ color:var(--accent) }
+.search-area{
+  display:flex; flex:1; max-width:720px; align-items:center;
+  background:var(--card); padding:6px; border-radius:24px; box-shadow:var(--shadow);
+}
+.search-area input{
+  border:0; outline:0; padding:10px 12px; flex:1; font-size:15px; border-radius:20px;
+}
+.search-area button{
+  background:var(--accent); color:white; border-radius:20px; padding:8px 14px; border:0; margin-right:6px;
+  cursor:pointer;
+}
+.cart-btn{
+  background:var(--card); padding:6px 10px; border-radius:12px; box-shadow:var(--shadow); cursor:pointer;
+}
+
+/* layout */
+.container{
+  display:grid;
+  grid-template-columns:220px 1fr 360px;
+  gap:20px;
+  padding:22px;
+  max-width:1200px;
+  margin:18px auto;
+}
+
+/* left col */
+.leftcol{
+  background:var(--card); padding:16px; border-radius:var(--radius); box-shadow:var(--shadow);
+}
+.leftcol h3{margin:0 0 8px 0}
+.leftcol ul{list-style:none; padding:0; margin:0}
+.leftcol li{padding:8px 6px; border-radius:8px; cursor:pointer}
+.leftcol li:hover{background:#f2f6ff; color:var(--accent)}
+
+/* main col results */
+.maincol .results-header{margin-bottom:10px; color:var(--muted)}
+.results-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap:14px;
+}
+.book-card{
+  background:var(--card); padding:12px; border-radius:12px; box-shadow:var(--shadow); display:flex; gap:12px;
+}
+.book-cover{
+  width:90px; height:130px; flex:0 0 90px; overflow:hidden; border-radius:6px; background:#eee;
+  display:flex; align-items:center; justify-content:center;
+}
+.book-cover img{width:100%; height:100%; object-fit:cover}
+.book-body{flex:1; display:flex; flex-direction:column;}
+.book-title{font-weight:600; margin-bottom:6px; font-size:14px}
+.book-auth{color:var(--muted); font-size:13px; margin-bottom:8px}
+.book-actions{margin-top:auto; display:flex; gap:8px; align-items:center}
+.action-btn{border:0; padding:6px 8px; border-radius:8px; cursor:pointer}
+.buy-btn{background:#0ea5a4; color:white}
+.rent-btn{background:orange; color:white}
+.preview-btn{background:transparent; border:1px solid #ddd; padding:6px 8px; border-radius:8px}
+
+/* right col preview & cart */
+.rightcol{
+  background:var(--card); padding:16px; border-radius:var(--radius); box-shadow:var(--shadow);
+  height: calc(100vh - 160px); overflow:auto;
+}
+.preview-area{min-height:280px; border-radius:8px; overflow:hidden; background:#fafafa; display:flex; align-items:center; justify-content:center}
+.preview-iframe{width:100%; height:480px; border:0}
+.preview-empty{color:var(--muted)}
+
+/* cart */
+#cartPanel{margin-top:16px}
+.cart-item{display:flex; gap:10px; padding:8px 6px; border-bottom:1px solid #f0f0f0}
+.cart-item img{width:48px; height:70px; object-fit:cover}
+.cart-summary{margin-top:12px; display:flex; justify-content:space-between; align-items:center}
+.pay-btn{background:var(--accent); color:white; padding:8px 12px; border-radius:8px; border:0; cursor:pointer}
+
+/* modal */
+.modal{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.35)}
+.modal.hidden{display:none}
+.modal-content{background:white; padding:18px; border-radius:10px; width:320px; box-shadow:var(--shadow)}
+.modal-actions{display:flex; gap:10px; justify-content:flex-end; margin-top:12px}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+header {
+  background: #4285f4;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.search-bar {
+  margin-top: 10px;
+}
+
+.search-bar input {
+  padding: 5px;
+  width: 300px;
+}
+
+.search-bar button {
+  padding: 6px 10px;
+}
+
+main {
+  display: flex;
+  padding: 10px;
+}
+
+nav#categories {
+  flex: 1;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+nav#categories ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav#categories li {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+nav#categories li:hover {
+  background: #eee;
+}
+
+#results {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.book-card {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-card img {
+  width: 100px;
+  height: auto;
+}
+
+.book-actions button {
+  margin: 2px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+aside {
+  flex: 1;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.cart-item img {
+  width: 30px;
+  margin-right: 5px;
+}
+
+.popup {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.popup-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.popup-content th, .popup-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.popup-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden {
+  display: none;
+}
+
+#cart-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  min-width: 300px;
+}
+
+#cart-icon {
+  position: relative;
+  z-index: 100;
+  cursor: pointer;
+}
+
+/* === Popup đọc thử === */
+#preview-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 1200;
+}
+#preview-popup.hidden {
+  display: none;
+}
+.preview-modal {
+  width: 80%;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.preview-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 10;
+  padding: 6px 8px;
+  cursor: pointer;
+  border: none;
+  background: #f44336;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+}
+.preview-iframe {
+  width: 100%;
+  height: 70vh;
+  border: 0;
+  display: block;
+}
+
+/* === Popup thông báo === */
+#notify-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4caf50;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-size: 14px;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+#notify-popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Màu riêng cho Book và Store */
+.logo .book {
+  color: #ff5722; /* cam */
+  font-weight: bold;
+}
+.logo .store {
+  color: #2196f3; /* xanh */
+  font-weight: bold;
+}
+
+/* Badge số lượng giỏ hàng */
+#cartToggle {
+  position: relative;
+}
+#cartCount {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Nút Đăng nhập / Đăng ký / Đăng xuất */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+
+.auth-buttons button {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.auth-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+/* Popup nền mờ */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 4000;
+  backdrop-filter: blur(5px);
+}
+
+.popup.show {
+  display: flex;
+}
+
+/* Khung form */
+.popup-content {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 25px 30px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 300px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  animation: fadeIn 0.3s ease;
+  color: white;
+}
+
+.popup-content h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.popup-content input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+}
+
+.popup-content button {
+  background: linear-gradient(135deg, #28a745, #00ff87);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.popup-content button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,255,135,0.4);
+}
+
+/* Nút đóng */
+.close-popup {
+  background: #ff4d4d !important;
+}
+
+.close-popup:hover {
+  box-shadow: 0 4px 15px rgba(255,77,77,0.4) !important;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.user-info {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  background: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  gap: 8px;
+  font-weight: bold;
+  z-index: 999;
+}
+
+.user-info img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.hidden {
+  display: none !important;
+}

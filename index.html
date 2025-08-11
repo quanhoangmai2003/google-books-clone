@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BookStore — Demo (Google Books style)</title>
+  <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+  <script type="text/javascript">
+
+  google.books.load();
+</script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <!-- Nút mở form -->
+     
+    <div id="user-info" class="user-info hidden">
+  <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="user-avatar">
+  <span id="username-display"></span>
+</div>
+
+<div class="auth-buttons">
+  <button id="show-register">Đăng ký</button>
+  <button id="show-login">Đăng nhập</button>
+  <button id="logout-btn" style="display:none;">Đăng xuất</button>
+</div>
+
+<!-- Popup đăng ký -->
+<div id="register-popup" class="popup">
+  <div class="popup-content">
+    <h2>Đăng ký</h2>
+    <input type="text" id="reg-username" placeholder="Tên đăng nhập" />
+    <input type="password" id="reg-password" placeholder="Mật khẩu" />
+    <button id="register-btn">Đăng ký</button>
+    <button class="close-popup">Đóng</button>
+  </div>
+</div>
+
+<!-- Popup đăng nhập -->
+<div id="login-popup" class="popup">
+  <div class="popup-content">
+    <h2>Đăng nhập</h2>
+    <input type="text" id="login-username" placeholder="Tên đăng nhập" />
+    <input type="password" id="login-password" placeholder="Mật khẩu" />
+    <button id="login-btn">Đăng nhập</button>
+    <button class="close-popup">Đóng</button>
+  </div>
+</div>
+
+    <div class="logo">
+  <span class="book">Book</span><span class="store">Store</span>
+</div>
+
+    <div class="search-area">
+      <input id="searchInput" type="search" placeholder="Tìm sách, tác giả, ISBN..." />
+      <button id="searchBtn">Tìm</button>
+    </div>
+    <div class="cart-btn" id="cartToggle">
+      🛒 <span id="cartCount">0</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <aside class="leftcol">
+      <h3>Thể loại</h3>
+      
+      <ul id="categories">
+        <ul>
+        <li data-category="Fiction">Tiểu thuyết</li>
+        <li data-category="History">Lịch sử</li>
+        <li data-category="Science">Khoa học</li>
+        <li data-category="Technology">Công nghệ</li>
+        <li data-category="Fantasy">Giả tưởng</li>
+        <li data-category="Romance">Tình cảm</li>
+      </ul>
+      </ul>
+      <hr/>
+      
+    </aside>
+
+    <section class="maincol">
+      <div id="resultsHeader" class="results-header">Kết quả tìm kiếm</div>
+      <div id="results" class="results-grid">
+        <!-- sách xuất hiện ở đây -->
+      </div>
+    </section>
+
+    <div id="preview-section">
+      <h3>Xem trước</h3>
+      <div id="viewer" style="width:100%; height:500px;">Chọn một cuốn để đọc thử</div>
+    </div>
+
+
+      
+    </aside>
+  </main>
+
+  <!-- Modal thanh toán (mô phỏng) -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Xác nhận thanh toán</h3>
+      <p id="modalSummary"></p>
+      <div class="modal-actions">
+        <button id="confirmPay">Xác nhận</button>
+        <button id="cancelPay">Huỷ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup giỏ hàng -->
+<!-- Popup giỏ hàng -->
+<div id="cart-popup" class="hidden">
+  <h2>Giỏ hàng</h2>
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Tên sách</th>
+        <th>Giá</th>
+      </tr>
+    </thead>
+    <tbody id="cart-items"></tbody>
+  </table>
+  <p><b>Tổng: </b><span id="total-price">0</span> đ</p>
+  <button id="checkout-btn">Thanh toán</button>
+  <button id="close-cart-btn">Đóng</button>
+</div>
+
+  </div>
+        <!-- Sẽ được thêm động -->
+      </tbody>
+    </table>
+    
+    </div>
+  </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
